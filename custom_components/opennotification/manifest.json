@@ -1,0 +1,10 @@
+{
+  "domain": "opennotification",
+  "name": "Open Notification",
+  "version": "0.1.0",
+  "documentation": "https://github.com/henrisaumure/opennotification-hacs",
+  "requirements": [],
+  "codeowners": ["@henrisaumure"],
+  "config_flow": true,
+  "iot_class": "cloud_push"
+}

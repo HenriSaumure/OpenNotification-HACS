@@ -1,0 +1,19 @@
+send:
+  name: Send Notification
+  description: Send a notification via OpenNotification server.
+  fields:
+    title:
+      description: Title of the notification
+      example: Home Assistant
+    description:
+      description: Body text
+      example: Le souper est prêt!
+    pictureLink:
+      description: Optional picture link
+    icon:
+      description: Optional icon
+    actionLink:
+      description: Optional action link
+    isAlert:
+      description: Whether this is an alert
+      example: true
