@@ -7,13 +7,11 @@ from .const import DOMAIN, CONF_SERVER, CONF_GUID
 
 SERVICE_SEND_SCHEMA = vol.Schema({
     vol.Required("title"): cv.string,
-    vol.Optional("message"): cv.string,
-    vol.Optional("data"): vol.Schema({
-        vol.Optional("pictureLink"): cv.string,
-        vol.Optional("icon"): cv.string,
-        vol.Optional("actionLink"): cv.string,
-        vol.Optional("isAlert"): cv.boolean,
-    }),
+    vol.Optional("description"): cv.string,
+    vol.Optional("pictureLink"): cv.string,
+    vol.Optional("icon"): cv.string,
+    vol.Optional("actionLink"): cv.string,
+    vol.Optional("isAlert"): cv.boolean,
 })
 
 async def async_setup_entry(hass: HomeAssistant, entry):
@@ -23,16 +21,19 @@ async def async_setup_entry(hass: HomeAssistant, entry):
     async def handle_send(call: ServiceCall):
         title = call.data.get("title")
         description = call.data.get("message", "")
-        data = call.data.get("data", {})
+        pictureLink = call.data.get("pictureLink")
+        icon = call.data.get("icon")
+        actionLink = call.data.get("actionLink")
+        isAlert = call.data.get("isAlert", False)
 
         payload = {
             "guid": guid,
             "title": title,
             "description": description,
-            "pictureLink": data.get("pictureLink"),
-            "icon": data.get("icon"),
-            "actionLink": data.get("actionLink"),
-            "isAlert": data.get("isAlert", False),
+            "pictureLink": pictureLink,
+            "icon": icon,
+            "actionLink": actionLink,
+            "isAlert": isAlert,
         }
 
         async with aiohttp.ClientSession() as session:
