@@ -6,17 +6,8 @@ import voluptuous as vol
 from .const import DOMAIN, CONF_SERVER, CONF_GUID
 
 SERVICE_SEND_SCHEMA = vol.Schema({
-    vol.Optional("title"): cv.string,
-    vol.Optional("description"): cv.string,
-    vol.Optional("pictureLink"): cv.string,
-    vol.Optional("icon"): cv.string,
-    vol.Optional("actionLink"): cv.string,
-    vol.Optional("isAlert"): cv.boolean,
-})
-
-NOTIFY_SCHEMA = vol.Schema({
-    vol.Required("message"): cv.string,
-    vol.Optional("title"): cv.string,
+    vol.Required("title"): cv.string,
+    vol.Optional("message"): cv.string,
     vol.Optional("data"): vol.Schema({
         vol.Optional("pictureLink"): cv.string,
         vol.Optional("icon"): cv.string,
@@ -30,14 +21,9 @@ async def async_setup_entry(hass: HomeAssistant, entry):
     guid = entry.data[CONF_GUID]
 
     async def handle_send(call: ServiceCall):
-        if call.domain == 'notify':
-            title = call.data.get('title', 'Home Assistant')
-            description = call.data.get('message', '')
-            data = call.data.get('data', {})
-        else:
-            title = call.data.get("title")
-            description = call.data.get("description")
-            data = call.data
+        title = call.data.get("title")
+        description = call.data.get("message", "")
+        data = call.data.get("data", {})
 
         payload = {
             "guid": guid,
@@ -55,8 +41,5 @@ async def async_setup_entry(hass: HomeAssistant, entry):
                     hass.logger.error("OpenNotification failed: %s", await resp.text())
 
     hass.services.async_register(DOMAIN, "send", handle_send, schema=SERVICE_SEND_SCHEMA)
-
-    # Register as notify platform
-    hass.services.async_register('notify', 'opennotification', handle_send, schema=NOTIFY_SCHEMA)
 
     return True
