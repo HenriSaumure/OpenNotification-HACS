@@ -1,3 +1,3 @@
 # OpenNotification-HACS
-![Open Notification](logo.png)
+![Open Notification](./custom_components/opennotification/logo.png)
 OpenNotification-HACS

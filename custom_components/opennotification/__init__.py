@@ -20,7 +20,7 @@ async def async_setup_entry(hass: HomeAssistant, entry):
 
     async def handle_send(call: ServiceCall):
         title = call.data.get("title")
-        description = call.data.get("message", "")
+        description = call.data.get("description", "")
         pictureLink = call.data.get("pictureLink")
         icon = call.data.get("icon")
         actionLink = call.data.get("actionLink")
