@@ -7,13 +7,16 @@ send:
       example: Home Assistant
     description:
       description: Body text
-      example: Le souper est prêt!
+      example: Someone is at the door!
     pictureLink:
       description: Optional picture link
+      example: https://example.com/image.jpg
     icon:
       description: Optional icon
+      example: https://example.com/icon.jpg
     actionLink:
       description: Optional action link
+      example: homeassistant://navigate/lovelace/kiosk-camera
     isAlert:
       description: Whether this is an alert
       example: true
